@@ -1,0 +1,15 @@
+version: '3'
+services:
+    app:
+        build: .
+        volumes:
+            - ./:/usr/src/myapp
+    http:
+        image: steveltn/https-portal:latest
+        ports:
+            - 443:443
+        links:
+            - app
+        environment:
+            STAGE: local
+            DOMAINS: 'auth.suzurin.me -> http://app:3000'
